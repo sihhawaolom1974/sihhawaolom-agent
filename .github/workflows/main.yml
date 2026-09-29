@@ -1,4 +1,4 @@
-name: Sihhawaolom Daily Agent
+name:
 
 on:
   schedule:
