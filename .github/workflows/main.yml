@@ -8,29 +8,17 @@ on:
 jobs:
   run-agent:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
-
-      - name: Extract and Locate Files
+      - name: Unzip and Setup Files
         run: |
           unzip -o sihhawaolom-agent-main.zip
           ls -la
-          EXTRACTED_DIR=$(find . -maxdepth 2 -name "package.json" -exec dirname {} \;)
-          echo "Found package.json in: $EXTRACTED_DIR"
-          if [ "$EXTRACTED_DIR" != "." ]; then
-            cp -r $EXTRACTED_DIR/* .
-          fi
-
       - name: Install dependencies
         run: npm install
-
       - name: Run Agent Script
         run: npm start
         env:
