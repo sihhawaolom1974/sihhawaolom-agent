@@ -13,10 +13,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Unzip and Setup Files
-        run: |
-          unzip -o sihhawaolom-agent-main.zip
-          ls -la
       - name: Install dependencies
         run: npm install
       - name: Run Agent Script
