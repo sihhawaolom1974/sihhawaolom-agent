@@ -9,13 +9,23 @@ jobs:
   run-agent:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Create package.json dynamically
+
+      - name: Atomic Environment Bootstrap & Package Creation
         run: |
-          echo '{
+          echo "=== Verifying Working Directory ==="
+          pwd
+          ls -la
+          
+          echo "=== Generating package.json Dynamically ==="
+          cat << 'EOF' > package.json
+          {
             "name": "sihhawaolom-agent",
             "version": "1.0.0",
             "private": true,
@@ -23,8 +33,14 @@ jobs:
               "start": "node index.js"
             },
             "dependencies": {}
-          }' > package.json
-      - name: Install dependencies
+          }
+          EOF
+          
+          echo "=== Verifying File Generation ==="
+          ls -la package.json
+
+      - name: Install Dependencies
         run: npm install
-      - name: Run Agent Script
+
+      - name: Execute Agent Script
         run: npm start
