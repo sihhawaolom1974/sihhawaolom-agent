@@ -17,13 +17,13 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Atomic Environment Bootstrap & Package Creation
+      - name: Self-Contained Bootstrap & Script Generation
         run: |
           echo "=== Verifying Working Directory ==="
           pwd
           ls -la
           
-          echo "=== Generating package.json Dynamically ==="
+          echo "=== Generating package.json ==="
           cat << 'EOF' > package.json
           {
             "name": "sihhawaolom-agent",
@@ -35,9 +35,16 @@ jobs:
             "dependencies": {}
           }
           EOF
+
+          echo "=== Generating index.js Agent Logic ==="
+          cat << 'EOF' > index.js
+          console.log("Sihhawaolom Agent is starting execution...");
+          // أضف كود الأداة الخاص بك هنا مستقبلاً
+          console.log("Agent executed successfully!");
+          EOF
           
-          echo "=== Verifying File Generation ==="
-          ls -la package.json
+          echo "=== Verifying Generated Files ==="
+          ls -la
 
       - name: Install Dependencies
         run: npm install
